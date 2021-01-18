@@ -36,7 +36,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/login-error")
+    @GetMapping("/login/error")
     public String loginPage(Model m) {
         String error = "Wprowadzone dane są nieprawidłowe ";
         m.addAttribute("error", error);
@@ -53,11 +53,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute(value = "user") @Validated({RegisterValidation.class}) User user, BindingResult bindingResult) {
+    public ModelAndView register(@ModelAttribute(value = "user") @Validated({RegisterValidation.class}) User user, BindingResult bindingResult) {
         boolean flag = true;
 
         if (bindingResult.hasErrors()) {
-            return "register";
+            return new ModelAndView("register");
         }
 
         for (User iUser : userRepository.findAll()) {
@@ -67,13 +67,14 @@ public class UserController {
             }
         }
 
+        //zarejestrowany zostanie tylko użytkownik o unikalnym loginie
         if (flag) {
-            //zarejestrowany zostanie tylko użytkownik o unikalnym loginie
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-        }
-        //przekierowanie do adresu url: /login
-        return "redirect:/login";
+            //przekierowanie do adresu url: /login po pomyślnej rejestracji
+            return new ModelAndView("redirect:/login");
+            //powrót do formularza po nieudanej rejestracji
+        } else return new ModelAndView("redirect:/register", "error", true);
     }
 
     @GetMapping(value = "/delete")
@@ -94,7 +95,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit")
-    public String editUser(@ModelAttribute(value = "user") @Validated({EditValidation.class}) User user, BindingResult bindingResult) {
+    public String editUser(@ModelAttribute(value = "user") @Validated({EditValidation.class}) User
+                                   user, BindingResult bindingResult) {
         User userFromDB = userRepository.findByLogin(user.getLogin());
 
         if (bindingResult.hasErrors()) {

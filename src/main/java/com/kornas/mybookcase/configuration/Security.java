@@ -57,7 +57,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .passwordParameter("passwd")
                 .defaultSuccessUrl("/web/books", true)
                 .permitAll()
-                .failureUrl("/login-error")
+                .failureUrl("/login/error")
                 .and()
                 .logout()
                 .logoutUrl("/logout")

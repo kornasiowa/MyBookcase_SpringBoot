@@ -44,7 +44,7 @@
                     <input type="radio" id="option2" name="bookRead" class="custom-control-input" th:value=1
                            th:field="*{bookRead}">
                     <label class="custom-control-label" for="option2">Przeczytana</label>
-                </div>
+                </div><br>
                 <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('bookRead')}"
                       th:errors="*{bookRead}"></span>
             </div>

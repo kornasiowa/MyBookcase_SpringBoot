@@ -17,19 +17,23 @@ public class User {
     private Integer uid;
 
     @NotNull
-    @Pattern(regexp = "[a-zA-Z]{1,30}", message = "Podaj poprawne imię", groups = {EditValidation.class, RegisterValidation.class})
+    @Pattern(regexp = "[a-zA-Z]{1,30}", message = "Podaj poprawne imię",
+            groups = {EditValidation.class, RegisterValidation.class})
     private String name;
 
     @NotNull
-    @Pattern(regexp = "[a-zA-Z]{1,30}", message = "Podaj poprawne nazwisko", groups = {EditValidation.class, RegisterValidation.class})
+    @Pattern(regexp = "[a-zA-Z]{1,30}", message = "Podaj poprawne nazwisko",
+            groups = {EditValidation.class, RegisterValidation.class})
     private String surname;
 
     @NotNull
-    @Pattern(regexp = "[a-zA-Z0-9\\\\._]{2,30}", message = "Podaj poprawny login", groups = {EditValidation.class, RegisterValidation.class})
+    @Pattern(regexp = "[a-z0-9\\\\._]{2,30}", message = "Dozwolone litery (a-z), cyfry (0-9) i znaki (._)",
+            groups = {EditValidation.class, RegisterValidation.class})
     private String login;
 
     @NotNull
-    @Size(min = 1, message = "Hasło nie może być puste", groups = {RegisterValidation.class})
+    @Size(min = 1, message = "Hasło nie może być puste",
+            groups = {RegisterValidation.class})
     private String password;
 
     public User() {

@@ -9,6 +9,9 @@
 
     <form class="auth-form-position" th:action="@{/register}" method="POST" th:object="${user}">
 
+        <span class="badge badge-pill badge-danger mb-4" th:if="${param.error}"
+              th:text="'Podany login jest już zarejestrowany. Wybierz inny'"></span>
+
         <input type="text" class="form-control" th:field="*{name}" th:errorClass="error" placeholder="Imię"/>
         <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('name')}"
               th:errors="*{name}"></span><br>

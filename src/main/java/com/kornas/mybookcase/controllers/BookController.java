@@ -28,6 +28,7 @@ public class BookController {
     public String getBooksList(Model bookModel, Principal principal) {
         List<Book> bookList = bookRepository.findByUser(principal.getName());
         bookModel.addAttribute("book", bookList);
+        bookModel.addAttribute("welcome", "Witaj " + principal.getName());
 
         return "books";
     }
@@ -90,12 +91,10 @@ public class BookController {
         if (bookFromDB.isPresent()) {
             Book editedBook = bookFromDB.get();
             editedBook.setBid(bid);
+            bookModel.addAttribute("book", editedBook);
 
             String errorMessage = "Posiadasz już inną o tym samym tytule '" + error + "'";
             bookModel.addAttribute("error", errorMessage);
-
-            bookModel.addAttribute("book", editedBook);
-            bookModel.addAttribute("error", error);
         }
         //w formularzu hidden input dla pola id i user
         return "editBook";
