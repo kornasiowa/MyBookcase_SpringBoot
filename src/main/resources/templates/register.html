@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head"></head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+
+<div class="container center-body text-center">
+    <img class="w-auto h-auto" src="https://i.ibb.co/vhv5gBM/My-Bookcase.png" alt="MyBookcase logo">
+
+    <form class="auth-form-position" th:action="@{/register}" method="POST" th:object="${user}">
+
+        <input type="text" class="form-control" th:field="*{name}" th:errorClass="error" placeholder="Imię"/>
+        <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span><br>
+
+        <input type="text" class="form-control" th:field="*{surname}" th:errorClass="error" placeholder="Nazwisko"/>
+        <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('surname')}"
+              th:errors="*{surname}"></span><br>
+
+        <input type="text" class="form-control" th:field="*{login}" th:errorClass="error" placeholder="Login"/>
+        <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('login')}"
+              th:errors="*{login}"></span><br>
+
+        <input type="text" class="form-control" th:field="*{password}" th:errorClass="error" placeholder="Hasło"/>
+        <span class="badge badge-pill badge-danger mb-4" th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}"></span><br>
+
+        <button class="btn btn-primary btn-md w-100" type="submit">Zarejestruj się</button>
+    </form>
+</div>
+
+<div th:include="layout :: footer"></div>
+</body>
+</html>

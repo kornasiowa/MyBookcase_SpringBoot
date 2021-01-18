@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head"></head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+
+<div class="container table-body">
+    <div th:class="html-editor-align-center" class="row col-md-7 table-responsive">
+        <table class="table text-center">
+            <thead class="table-dark">
+            <tr>
+                <th>Autor</th>
+                <th>Tytuł</th>
+                <th>Rok wydania</th>
+                <th>Ocena</th>
+                <th>Czy przeczytana?</th>
+                <th>Operacje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:style="${tempBook.getBookRate() >= 4.0} ? 'background-color: #b3e5fc' : 'background-color: #eceff1'"
+                th:each="tempBook, rowStat: ${book}">
+                <td th:text="${tempBook.bookAuthor}"></td>
+                <td th:text="${tempBook.bookName}"></td>
+                <td th:text="${tempBook.bookYear}"></td>
+                <td th:text="${tempBook.bookRate}"></td>
+                <td>
+                    <span th:if="${tempBook.bookRead == 0}" th:style="'color: red'"
+                          th:text="Nie"></span>
+                    <span th:if="${tempBook.bookRead == 1}"
+                          th:text="Tak"></span>
+                </td>
+
+                <td th:width="150px">
+                    <div class="btn-group mt-0 mb-0">
+                        <a th:href="@{/web/editBook/{bid} (bid=${tempBook.bid})}"
+                           class="btn btn-primary ml-2 p-2 d-block">Edytuj</a>
+                        <a th:href="@{/web/deleteBook/{bid} (bid=${tempBook.bid})}"
+                           class="btn btn-secondary mr-2 p-2 d-block">Usuń</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:include="layout :: footer"></div>
+</body>
+</html>

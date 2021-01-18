@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>My Bookcase</title>
+
+    <style>
+        .center-body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0px;
+            height: fit-content;
+            width: 100%;
+        }
+
+        .form-position {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .auth-form-position {
+            width: 100%;
+            max-width: 350px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .navbar-brand a {
+            color: white;
+        }
+
+        .navbar-brand a:hover {
+            color: lightblue;
+            text-decoration: none;
+        }
+
+        .table-dark {
+            background-color: #343a40;
+        }
+
+        .table-body {
+            padding-top: 12px;
+            padding-bottom: 52px;
+        }
+    </style>
+</head>
+
+<body>
+<div th:fragment="navigationPanel" role="navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <ul class="nav navbar-nav navbar-brand">
+                <li class="active" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/web/books}">
+                        <img src="https://i.ibb.co/CPBxJLC/logo.png" width="30" height="30"
+                             class="d-inline-block align-top" alt="Logo">
+                        Moja Biblioteczka
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-danger p-2 m-2" th:href="@{/register}">Zarejestruj się</a></li>
+
+                <li sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-primary p-2 m-2" th:href="@{/login}">Zaloguj się</a></li>
+
+                <li sec:authorize="isAuthenticated()">
+                    <a class="btn btn-danger p-2 m-2" th:href="@{/web/addBook}">Dodaj książkę</a></li>
+
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown btn btn-primary p-2 m-2">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        Konto użytkownika
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/edit}">Ustawienia konta</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/logout}">Wyloguj się</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="footer">
+    <footer class="footer py-3 bg-dark">
+        <div class="container text-center">
+            <span class="text-muted">Politechnika Lubelska - Programowanie Aplikacji Internetowych - Projekt 2020/2021</span>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

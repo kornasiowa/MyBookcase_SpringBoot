@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head"></head>
+
+<body>
+<div th:include="layout :: navigationPanel"></div>
+
+<div class="container center-body text-center">
+    <img class="w-auto h-auto" src="https://i.ibb.co/vhv5gBM/My-Bookcase.png" alt="MyBookcase logo">
+
+    <form class="auth-form-position" th:action="@{/login}" method="POST">
+
+        <span class="badge badge-pill badge-danger mb-4" th:if="${error}"
+              th:text="${error}"></span>
+
+        <input class="form-control" type="text" name="login" placeholder="Login"/><br>
+        <input class="form-control" type="password" name="passwd" placeholder="Hasło"/><br>
+
+        <button class="btn btn-primary btn-md w-100" type="submit">Zaloguj się</button>
+    </form>
+</div>
+
+<div th:include="layout :: footer"></div>
+</body>
+</html>
+
+

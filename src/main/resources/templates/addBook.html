@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head"></head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+
+<div class="container center-body text-center">
+    <div class="form-position">
+        <h1>Dodaj książkę</h1><br>
+
+        <form th:action="@{/web/addBook}" method="POST" th:object="${book}" novalidate="novalidate">
+
+            <span class="badge badge-pill badge-danger mb-4" th:if="${error}"
+                  th:text="${error}"></span>
+
+            <input type="text" class="form-control" th:field="*{bookAuthor}" th:errorClass="error" placeholder="Autor"/>
+            <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('bookAuthor')}"
+                  th:errors="*{bookAuthor}"></span><br>
+
+            <input type="text" class="form-control" th:field="*{bookName}" th:errorClass="error" placeholder="Tytuł"/>
+            <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('bookName')}"
+                  th:errors="*{bookName}"></span><br>
+
+            <input type="number" min="1980" max="2021" class="form-control" th:field="*{bookYear}" th:errorClass="error"
+                   placeholder="Rok wydania"/>
+            <span class="badge badge-pill badge-danger mb-1 " th:if="${#fields.hasErrors('bookYear')}"
+                  th:errors="*{bookYear}"></span><br>
+
+            <input type="number" min="1" max="5" step="0.5" class="form-control" th:field="*{bookRate}"
+                   th:errorClass="error" placeholder="Ocena"/>
+            <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('bookRate')}"
+                  th:errors="*{bookRate}"></span><br>
+
+            <div class="form-group mb-4">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option1" name="bookRead" class="custom-control-input" th:value=0
+                           th:field="*{bookRead}">
+                    <label class="custom-control-label" for="option1">Nieprzeczytana</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option2" name="bookRead" class="custom-control-input" th:value=1
+                           th:field="*{bookRead}">
+                    <label class="custom-control-label" for="option2">Przeczytana</label>
+                </div>
+                <span class="badge badge-pill badge-danger mb-1" th:if="${#fields.hasErrors('bookRead')}"
+                      th:errors="*{bookRead}"></span>
+            </div>
+
+            <button class="btn btn-primary btn-md w-100" type="submit">Zapisz</button>
+        </form>
+    </div>
+</div>
+
+<div th:include="layout :: footer"></div>
+</body>
+</html>
