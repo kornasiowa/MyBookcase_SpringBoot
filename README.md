@@ -39,4 +39,4 @@ Front-end was created with the use of Thymeleaf.
 - Spring Security
 - H2 Database
 - Lombok
-- Thymeleaf
+- Thymeleaf + Bootstrap
